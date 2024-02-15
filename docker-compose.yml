@@ -1,4 +1,6 @@
+# Example template - please customize for setup
 version: "3.9"
+
 services:
   palworld:
     image: ghcr.io/ripps818/palworld-wine:latest
@@ -8,9 +10,12 @@ services:
       - 25575:25575 # Optional RDP port
       - 27015:27015 # Optional Query port
     environment:
-      - TZ=America/Chicago
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
       - MULTITHREADING=true
     volumes:
-      - /mnt/user/app:/app # Where Steamcmd and Palworld is going to live
-      - /mnt/user/app/backup:/backup # Palworld Backup Locations
+      - ./palworld/app:/app # Where Steamcmd and Palworld is going to live
+      - ./palworld/backup:/backup # Palworld Backup Locations
     restart: unless-stopped
+    
