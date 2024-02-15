@@ -17,11 +17,13 @@ if [ ! -f /app/steamcmd.exe ]; then
 	printf "\e[0;32m%s\e[0m\n" "Installing Palworld Server...\nContainer might need to be restarted when done"
 fi
 
-# Install Visual C++ Runtime
-trickscmd=("/usr/bin/winetricks")
-trickscmd+=("--optout -f -q vcrun2022")
-echo "${trickscmd[*]}"
-exec "${trickscmd[@]}"
+if [ "${WINETRICKS_ON_BOOT,,}" = true ]; then
+	# Install Visual C++ Runtime
+	trickscmd=("/usr/bin/winetricks")
+	trickscmd+=("--optout -f -q vcrun2022")
+	echo "${trickscmd[*]}"
+	exec "${trickscmd[@]}"
+fi
 
 # Update Palworld Server
 if [ "${UPDATE_ON_BOOT,,}" = true ]; then
