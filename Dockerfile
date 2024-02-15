@@ -33,7 +33,7 @@ ENV PUID=99 \
 	RCON_ENABLED=true \
 	BACKUP_ENABLED=true \
 	OLD_BACKUP_DAYS=30 \
-	DELETE_OLD_BACKUPS=false \
+	DELETE_OLD_BACKUPS=false 
 
 # Install Supercronic
 # Latest releases available at https://github.com/aptible/supercronic/releases
