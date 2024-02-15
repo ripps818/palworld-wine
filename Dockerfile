@@ -35,7 +35,7 @@ ADD https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini /tin
 RUN chmod +x /tini
 
 # Install Gosu
-ADD https://github.com/tianon/gosu/releases/download/1.9/gosu-i386 /gosu
+ADD https://github.com/tianon/gosu/releases/download/1.9/gosu-amd64 /gosu
 RUN chmod +x /gosu
 
 # Setup a Wine prefix
