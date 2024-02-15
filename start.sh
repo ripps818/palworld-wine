@@ -3,6 +3,9 @@ export WINEDEBUG=-all
 steamcmd_exe="/app/steamcmd.exe"
 winecmd="/usr/bin/wine"
 
+# Start supercronic
+/usr/local/bin/supercronic -passthrough-logs /config/cronlist &
+
 if [ ! -d "${WINEPREFIX}" ]; then
 	printf "\e[0;32m%s\e[0m\n" "Initializing Wine configuration"
 	wineboot --init && wineserver -w

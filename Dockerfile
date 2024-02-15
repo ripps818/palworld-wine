@@ -70,9 +70,11 @@ ENV LANG=en_US.UTF-8
 RUN locale-gen
 
 # Setup Environment
+RUN mkdir -p /config
 COPY start.sh /
 COPY entrypoint.sh /
-COPY backup.sh /etc/cron.daily/
+COPY cronlist /config
+COPY backup.sh /config
 EXPOSE 8211/udp
 EXPOSE 25575
 EXPOSE 27015
