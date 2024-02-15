@@ -10,11 +10,11 @@ fi
 
 # Install steamcmd executable
 if [ ! -f "${steamcmd_exe}" ]; then
-	steamcmd_url="https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
+	steamcmd_url="http://media.steampowered.com/installer/steamcmd.zip"
 	printf "\e[0;32m%s\e[0m\n" "Downloading SteamCmd for Windows"
-    curl -fsSLO ${steamcmd_url} > /app/steamcmd.zip
-	unzip /app/steamcmd.zip* -d /app
-	rm -rf /appsteamcmd.zip*
+    curl -fs "${steamcmd_url}" -o /app/steamcmd.zip
+	unzip /app/steamcmd.zip -d /app
+	rm -rf /appsteamcmd.zip
 fi
 
 # Install Visual C++ Runtime
