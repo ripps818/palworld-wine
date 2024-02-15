@@ -24,9 +24,7 @@ fi
 if [ "${WINETRICKS_ON_BOOT,,}" = true ]; then
 	printf "\e[0;32m%s\e[0m\n" "Installing Visual C++ Runtime 2022"
 	trickscmd=("/usr/bin/winetricks")
-	trickscmd+=("--optout")
-	trickscmd+=("-fq")
-	trickscmd+=("vcrun2022")
+	trickscmd+=("--optout" "-f" "-q" "vcrun2022")
 	echo "${trickscmd[*]}"
 	"${trickscmd[@]}"
 fi
@@ -36,7 +34,7 @@ if [ "${UPDATE_ON_BOOT,,}" = true ]; then
 	printf "\e[0;32m%s\e[0m\n" "Updating and Validating Palworld Server"
 	startsteam=("${winecmd}")
 	startsteam+=("${steamcmd_exe}")
-	startsteam+=("+login anonymous +app_update 2394010 validate +quit")
+	startsteam+=("+login" "anonymous" "+app_update" "2394010" "validate" "+quit")
 	echo "${startsteam[*]}"
 	"${startsteam[@]}"
 	wineserver -w
