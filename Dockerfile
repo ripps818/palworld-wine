@@ -17,6 +17,24 @@ RUN pacman --noconfirm -S \
     wget \
 	curl
 
+# Custom Environment Variables
+ENV PUID=99 \
+	PGID=100 \
+	TZ=UTC \
+	MULTITHREADING=false \
+	PORT= \
+	PUBLIC_PORT= \
+	PUBLIC_IP= \
+	SERVER_NAME= \
+	SERVER_DESCRIPTION= \
+	SERVER_PASSWORD= \
+	ADMIN_PASSWORD= \
+	UPDATE_ON_BOOT=true \
+	RCON_ENABLED=true \
+	BACKUP_ENABLED=true \
+	OLD_BACKUP_DAYS=30 \
+	DELETE_OLD_BACKUPS=false \
+
 # Install Supercronic
 # Latest releases available at https://github.com/aptible/supercronic/releases
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.29/supercronic-linux-amd64 \
@@ -66,8 +84,6 @@ VOLUME /backup
 ENV DISPLAY :99
 
 # Setup User/Group
-ENV PUID=99
-ENV PGID=100
 RUN groupadd --gid $PGID pal && \
     useradd --uid $PUID --gid $PGID -M pal
 
