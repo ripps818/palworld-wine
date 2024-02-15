@@ -14,7 +14,6 @@ RUN pacman --noconfirm -S \
     lib32-libxcomposite \
     libxcomposite \
     unzip \
-    wget \
 	curl
 
 # Custom Environment Variables

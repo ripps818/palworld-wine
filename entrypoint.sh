@@ -1,6 +1,5 @@
 #!/bin/sh
-mkdir -p /app/.cache
-chown -R $PUID:$PGID .cache
+chown -R $PUID:$PGID /app /backup
 
 # Start supercronic to load 
 /usr/local/bin/supercronic -passthrough-logs cronlist &
