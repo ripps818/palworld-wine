@@ -2,7 +2,7 @@ version: "3.9"
 services:
   palworld:
     image: ghcr.io/ripps818/palworld-wine:latest
-    name: palworld-wine
+    container_name: palworld-wine
     ports:
       - 8211:8211/udp # Required UDP game Port
       - 25575:25575 # Optional RDP port
