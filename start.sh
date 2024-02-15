@@ -1,14 +1,15 @@
 #!/bin/bash
 export WINEDEBUG=-all
 
-steamcmd_url="https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
 
 if [ ! -d "$WINEPREFIX" ]; then
 	printf "\e[0;32m%s\e[0m\n" "Initializing Wine configuration"
 	wineboot --init && wineserver -w
 fi
 
+# Install steamcmd executable
 if [ ! -f /app/steamcmd.exe ]; then
+	steamcmd_url="https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
 	printf "\e[0;32m%s\e[0m\n" "Downloading SteamCmd for Windows"
 	wget -O /app/steamcmd.zip ${steamcmd_url}
 	unzip /app/steamcmd.zip*
@@ -17,9 +18,10 @@ if [ ! -f /app/steamcmd.exe ]; then
 fi
 
 # Install Visual C++ Runtime
-/usr/bin/winetricks \
---optout -f -q vcrun2022 && \
-wineserver -w
+trickscmd=("/usr/bin/winetricks")
+trickscmd+=("--optout -f -q vcrun2022")
+echo "${trickscmd[*]}"
+exec "${trickscmd[@]}"
 
 # Update Palworld Server
 if [ "${UPDATE_ON_BOOT,,}" = true ]; then
@@ -32,6 +34,32 @@ fi
 
 # Start Palworld Server
 printf "\e[0;32m%s\e[0m\n" "Starting Palword Server"
-/usr/bin/wine \
-/app/steamapps/common/PalServer/Pal/Binaries/Win64/PalServer-Win64-Test-Cmd.exe \
--useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
+
+startcmd=("/usr/bin/wine")
+paldir="/app/steamapps/common/PalServer/Pal/Binaries/Win64"
+palcmd="${paldir}/PalServer-Win64-Test-Cmd.exe"
+startcmd+=("${palcmd}")
+
+if ! fileExists "${startcmd[0]}"; then
+    echo "Try restarting with UPDATE_ON_BOOT=true"
+    exit 1
+fi
+
+if [ -n "${PORT}" ]; then
+    startcmd+=("-port=${PORT}")
+fi
+
+if [ -n "${QUERY_PORT}" ]; then
+    startcmd+=("-queryport=${QUERY_PORT}")
+fi
+
+if [ "${MULTITHREADING,,}" = true ]; then
+	startcmd+=("-useperfthreads" "-NoAsyncLoadingThread" "-UseMultithreadForDS")
+fi
+
+if [ "${COMMUNITY,,}" = true ]; then
+    startcmd+=("EpicApp=PalServer")
+fi
+
+echo "${startcmd[*]}"
+exec "${startcmd[@]}"
