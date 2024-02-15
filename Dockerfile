@@ -63,10 +63,6 @@ ENV WINEARCH=win64
 # Change Winetricks cache directory
 ENV XDG_CACHE_HOME=/app/.cache
 
-# Gracefully Shutdown xvfb instances
-# Thanks to TobiX
-#COPY fix-xvfb.sh /
-
 # Configure locale for unicode
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 ENV LANG=en_US.UTF-8
