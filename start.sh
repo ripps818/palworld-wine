@@ -24,7 +24,9 @@ fi
 if [ "${WINETRICKS_ON_BOOT,,}" = true ]; then
 	printf "\e[0;32m%s\e[0m\n" "Installing Visual C++ Runtime 2022"
 	trickscmd=("/usr/bin/winetricks")
-	trickscmd+=("--optout -f -q vcrun2022")
+	trickscmd+=("--optout")
+	trickscmd+=("-fq")
+	trickscmd+=("vcrun2022")
 	echo "${trickscmd[*]}"
 	"${trickscmd[@]}"
 fi
