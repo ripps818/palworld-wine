@@ -12,9 +12,9 @@ fi
 if [ ! -f "${steamcmd_exe}" ]; then
 	steamcmd_url="https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
 	printf "\e[0;32m%s\e[0m\n" "Downloading SteamCmd for Windows"
-	curl -fsSLO ${steamcmd_url}
+    curl -fsSLO ${steamcmd_url} > /app/steamcmd.zip
 	unzip /app/steamcmd.zip* -d /app
-	rm -rf steamcmd.zip*
+	rm -rf /appsteamcmd.zip*
 fi
 
 # Install Visual C++ Runtime
@@ -44,9 +44,13 @@ paldir="/app/steamapps/common/PalServer/Pal/Binaries/Win64"
 palcmd="${paldir}/PalServer-Win64-Test-Cmd.exe"
 startcmd+=("${palcmd}")
 
-if ! fileExists "${startcmd[0]}"; then
+if [ ! -f "${startcmd[0]}" ]; then
     echo "Try restarting with UPDATE_ON_BOOT=true"
     exit 1
+fi
+
+if [ "${COMMUNITY,,}" = true ]; then
+    startcmd+=("EpicApp=PalServer")
 fi
 
 if [ -n "${PORT}" ]; then
@@ -59,10 +63,6 @@ fi
 
 if [ "${MULTITHREADING,,}" = true ]; then
 	startcmd+=("-useperfthreads" "-NoAsyncLoadingThread" "-UseMultithreadForDS")
-fi
-
-if [ "${COMMUNITY,,}" = true ]; then
-    startcmd+=("EpicApp=PalServer")
 fi
 
 echo "${startcmd[*]}"
