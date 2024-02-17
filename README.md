@@ -1,3 +1,6 @@
+I've abandoned this projecct in favor of a [jammsen](jammsen/docker-palworld-dedicated-server) based fork at [ripps818/docker-palworld-dedicated-server-wine](https://github.com/ripps818/docker-palworld-dedicated-server-wine)
+___
+
 | Variable           | Info                                                                                                                                                                                                | Default Values | Allowed Values |
 |--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|---------------------------------------------------------------------------------------|
 | TZ                 | Timezone used for time stamping backup server                                                                                                                                                       | UTC            | See [TZ Identifiers](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#Time_Zone_abbreviations) |
